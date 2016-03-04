@@ -10,15 +10,15 @@ object Parser {
     val lines = loadResource(path).getLines.toList
 
     val nItems::fullMatrixs = lines flatMap parseNumbersFromLine
-    val m1::m2::_ = fullMatrixs.grouped(nItems).toList.grouped(nItems).toList
-    (nItems, m1, m2)
+    val m1::m2::_ = fullMatrixs.grouped(nItems).map(_.toArray).toList.grouped(nItems).toList
+    (nItems, m1.toArray, m2.toArray)
   }
 
   def parseSolutionFile(path: String): OptimalSolution = {
     val lines = loadResource(path).getLines.toList
 
     val nItems::cost::values = lines flatMap parseNumbersFromLine
-    (nItems, cost, values)
+    (nItems, cost, values.toArray)
   }
 
   private def parseNumbersFromLine(line: String) = {
