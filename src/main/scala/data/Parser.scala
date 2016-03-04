@@ -25,5 +25,5 @@ object Parser {
     line.split("""\s+""").filterNot(_ == "").map(_.trim.toInt)
   }
 
-  private def loadResource(path: String) = Source.fromURL(getClass.getResource(path))
+  private def loadResource(path: String) = Source.fromURL(getClass.getClassLoader.getResource(path))
 }
