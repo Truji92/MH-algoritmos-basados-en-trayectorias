@@ -9,7 +9,6 @@ class ProblemTests extends Properties("Problems") {
 
   property("optimalSolutionHasOptimalCost") = forAll (problems) { case (problem: ProblemData, optimalSolution: OptimalSolution) =>
     val (_, optCost, solution) = optimalSolution
-    println(problem)
 
     algorithms.cost(problem, solution) == optCost
   }
