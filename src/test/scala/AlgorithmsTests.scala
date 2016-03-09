@@ -8,12 +8,13 @@ class AlgorithmsTests extends Properties("Algorithms"){
 
   val problems = Gen.oneOf(Problems.tai25, Problems.sko90, Problems.tai150)
 
-  property("GreedyIsNotBetterThanOptimal") = forAll (problems) { case (problem: ProblemData, optimalSolution: OptimalSolution) =>
-    val (_, optCost, solution) = optimalSolution
+  property("GreedyIsNotBetterThanOptimal") = forAll (problems) {
+    case (problem: ProblemData, optimalSolution: OptimalSolution) =>
+      val (_, optCost, solution) = optimalSolution
 
-    val greedySolution = Greedy(problem)
+      val greedySolution = Greedy(problem)
 
-    optCost <= algorithms.cost(problem, greedySolution)
+      optCost <= algorithms.cost(problem, greedySolution)
   }
 
 }
