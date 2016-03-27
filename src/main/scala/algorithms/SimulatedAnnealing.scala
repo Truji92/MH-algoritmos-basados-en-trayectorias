@@ -2,6 +2,8 @@ package algorithms
 
 import types.Types.{Solution, ProblemData}
 
+import scala.util.Random
+
 object SimulatedAnnealing {
 
   val iterationFactor = 80
@@ -9,7 +11,7 @@ object SimulatedAnnealing {
   val phi = 0.3
   val maxNeighbours = 20
 
-  def apply(inputs: ProblemData) = {
+  def apply(inputs: ProblemData, random: Random) = {
     val (n, _, _) = inputs
     val maxIterations = iterationFactor * n
 
@@ -23,12 +25,12 @@ object SimulatedAnnealing {
       def analizeNeighbours(best: Solution, bestCost: Int, currentSol: Solution, currentCost: Int, neighboursLeft: Int): (Solution, Int, Solution, Int) = {
         if (neighboursLeft == 0) (best, bestCost, currentSol, currentCost)
         else {
-          val newS = generateNeighbour(currentSol, n)
+          val newS = generateNeighbour(currentSol, n, random)
           val newCost = cost(inputs, newS)
 
           if(newCost < bestCost)
             analizeNeighbours(newS, newCost, newS, newCost, neighboursLeft - 1)
-          else if (util.Random.nextDouble() <= acceptanceProbability(currentCost, newCost, T))
+          else if (random.nextDouble() <= acceptanceProbability(currentCost, newCost, T))
             analizeNeighbours(best, bestCost, newS, newCost, neighboursLeft - 1)
           else analizeNeighbours(best, bestCost, currentSol, currentCost, neighboursLeft - 1)
 
@@ -53,9 +55,9 @@ object SimulatedAnnealing {
     else math.exp(-diff/T)
   }
 
-  def generateNeighbour(sol: Solution, n: Int) = {
-    val i = util.Random.nextInt(n)
-    val j = util.Random.nextInt(n)
+  def generateNeighbour(sol: Solution, n: Int, random: Random) = {
+    val i = random.nextInt(n)
+    val j = random.nextInt(n)
     val newSol = sol updated(i, sol(j))
     newSol update(j, sol(i))
     newSol
