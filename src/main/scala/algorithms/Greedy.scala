@@ -12,11 +12,11 @@ object Greedy {
     val m2Potential = m2.map(_.sum) zip indexs
 
     val m1Order = m1Potential sortWith {
-      case ((pot1, _),(pot2, _)) => pot1 > pot2
+      case ((pot1, _),(pot2, _)) => pot1 >= pot2
     }
 
     val m2Order = m2Potential sortWith {
-      case ((pot1, _),(pot2, _)) => pot1 < pot2
+      case ((pot1, _),(pot2, _)) => pot1 <= pot2
     }
 
     val res = Array.ofDim[Int](n)
