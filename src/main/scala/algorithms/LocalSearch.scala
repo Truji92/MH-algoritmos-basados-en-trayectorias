@@ -2,9 +2,11 @@ package algorithms
 
 import types.Types._
 
+import scala.util.Random
+
 object LocalSearch {
 
-  def apply(inputs: ProblemData) = {
+  def apply(inputs: ProblemData, random: Random) = {
     val (n, m1, m2) = inputs
 
     def findBestNeighbourg(current: Solution) = {
@@ -15,6 +17,7 @@ object LocalSearch {
 
     def findBestSolution(current: Solution, currentCost: Int): Solution = {
       val best = findBestNeighbourg(current)
+
       val bestCost = cost(inputs, best)
 
       if (bestCost < currentCost)
@@ -23,7 +26,7 @@ object LocalSearch {
         current
     }
 
-    val initialSolution = generateRandomSolution(n)
+    val initialSolution = generateRandomSolution(n, random)
 
     findBestSolution(initialSolution, cost(inputs, initialSolution))
   }
@@ -35,13 +38,15 @@ object LocalSearch {
     val switchs = indexs.combinations(2)
     switchs map {
       case Vector(i, j) =>
-        solution updated(i, solution(j)) updated (j, solution(i))
+        val newS = solution updated(i, solution(j))
+        newS update (j, solution(i))
+        newS
     } toList
   }
 
-  def generateRandomSolution(size: Int): Solution = {
+  def generateRandomSolution(size: Int, random: Random): Solution = {
     val sol = 1 to size
-    util.Random.shuffle(sol).toArray
+    random.shuffle(sol).toArray
   }
 
 }
