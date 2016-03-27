@@ -56,7 +56,9 @@ object SimulatedAnnealing {
   def generateNeighbour(sol: Solution, n: Int) = {
     val i = util.Random.nextInt(n)
     val j = util.Random.nextInt(n)
-    sol.updated(i, sol(j)).updated(j, sol(i)) //dos copias... =/ not cool
+    val newSol = sol updated(i, sol(j))
+    newSol update(j, sol(i))
+    newSol
   }
 
   def cool(T: Double, k: Int) = T / (1 + k)
