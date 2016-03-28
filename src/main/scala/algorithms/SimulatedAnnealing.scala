@@ -9,7 +9,7 @@ object SimulatedAnnealing {
   val iterationFactor = 80
   val mu = 0.3
   val phi = 0.3
-  val maxNeighbours = 20
+  val maxNeighbours = 50
 
   def apply(inputs: ProblemData, random: Random) = {
     val (n, _, _) = inputs
