@@ -6,7 +6,7 @@ import scala.util.Random
 
 object LocalSearch {
 
-  def apply(inputs: ProblemData, random: Random) = {
+  def apply(inputs: ProblemData, random: Random, startFrom: Option[Solution] = None) = {
     val (n, m1, m2) = inputs
 
     def findBestNeighbourg(current: Solution) = {
@@ -26,7 +26,7 @@ object LocalSearch {
         current
     }
 
-    val initialSolution = generateRandomSolution(n, random)
+    val initialSolution = startFrom.getOrElse(generateRandomSolution(n, random))
 
     findBestSolution(initialSolution, cost(inputs, initialSolution))
   }
