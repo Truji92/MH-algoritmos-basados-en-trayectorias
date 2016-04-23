@@ -8,18 +8,21 @@ import scala.util.Random
 
 object Main {
   def main(args: Array[String]) {
-//    Problems.tai150 match {
-//      case (inputs, solution) =>
-//        println("*******************************************************************")
-//        //println("Simulated Annealing:  " + cost(inputs, SimulatedAnnealing(inputs)))
-//        //println("Local Search:         " + cost(inputs, LocalSearch(inputs)))
-//        println("Tabu:                 " + cost(inputs, TabuSearch(inputs, new Random)))
-//        println("Greedy:               " + cost(inputs, Greedy(inputs)))
-//        //println("Random Search:        " + cost(inputs, RandomSearch(inputs)))
-//        println("Optimal:              " + solution._2)
-//        println("*******************************************************************")
-//    }
-    generateTabuFiles()
+    Problems.tai25 match {
+      case (inputs, solution) =>
+        println("*******************************************************************")
+        //println("Simulated Annealing:  " + cost(inputs, SimulatedAnnealing(inputs)))
+        //println("Local Search:         " + cost(inputs, LocalSearch(inputs)))
+        //println("Tabu:                 " + cost(inputs, TabuSearch(inputs, new Random)))
+        println("Greedy:               " + cost(inputs, Greedy(inputs)))
+        //println("Random Search:        " + cost(inputs, RandomSearch(inputs)))
+        println("Optimal:              " + solution._2)
+        println("GRASP:                " + cost(inputs, GRASP(inputs, new Random)))
+        println("ILS:                  " + cost(inputs, ILS(inputs, new Random)))
+        println("VNS:                  " + cost(inputs, VNS(inputs, new Random)))
+        println("*******************************************************************")
+    }
+    //generateTabuFiles()
     //generateTestingFiles()
   }
 

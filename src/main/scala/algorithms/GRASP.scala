@@ -55,12 +55,9 @@ object GRASP {
       addTupleToSolution(m1Order.to[ArrayBuffer], m2Order.to[ArrayBuffer], Array.ofDim[Int](n))
     }
 
-    var i = 0
     def compare(best: (Solution, Int), newStart: Solution) = best match {
       case (best, bestCost) =>
         val newSol = LocalSearch(inputs, random, Some(newStart))
-        i += 1
-        println(i)
         val newCost = cost(inputs, newSol)
         if (newCost < bestCost) (newSol, newCost)
         else (best, bestCost)
