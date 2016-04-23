@@ -15,27 +15,13 @@ object ILS {
 
     val mutationSize = n/4
 
-    def mutate(solution: Solution) = {
-      val subListStart = random.nextInt(solution.length - mutationSize)
-
-      val subList = solution.slice(subListStart, subListStart + mutationSize)
-
-      val newSubList = random.shuffle(subList.toList).toArray
-
-      val newSolution = solution.clone()
-      for (i <- subListStart until subListStart + mutationSize) {
-        newSolution.update(i, newSubList(i-subListStart))
-      }
-      newSolution
-    }
-
     val rsol = randomSolution(n, random)
 
     var best = LocalSearch(inputs, random, startFrom = Some(rsol))
     var bestCost = cost(inputs, best)
 
     for (i <- 1 until 10) {
-      val mutated = mutate(best)
+      val mutated = mutate(best, mutationSize, random)
       val newSol = LocalSearch(inputs, random, startFrom = Some(mutated))
       val newCost = cost(inputs, newSol)
 
@@ -47,11 +33,5 @@ object ILS {
 
     best
   }
-
-  def randomSolution(size: Int, random: Random) = {
-    val sol = 1 to size
-    random.shuffle(sol).toArray
-  }
-
 
 }
