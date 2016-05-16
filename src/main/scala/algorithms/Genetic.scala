@@ -3,7 +3,6 @@ package algorithms
 import data.Problems
 import types.Types._
 
-import scala.collection.mutable.ArrayBuffer
 import scala.language.{implicitConversions, postfixOps}
 import scala.util.Random
 
@@ -12,13 +11,10 @@ import scala.util.Random
   */
 object Genetic {
 
-  type Individuo = (Solution, Int)
-
-  type Population = Array[Individuo]
-
   val population_size = 155 //30-200
   val cruze_prob = 0.9
-  val mutation_prob = 0.05 // 0.05 - 0.2
+  val mutation_prob = 0.2 // 0.05 - 0.2
+  //val mutation_prob = 0.05 // 0.05 - 0.2
   val elite_size = 5
   val tournament_size = 0.1 * population_size toInt
   val generations = 300
@@ -45,7 +41,7 @@ object Genetic {
 
     def mutate(individuo: Individuo) =
       if (random.nextFloat() <= mutation_prob) {
-        val newSol = algorithms.mutate(individuo._1, 1, random)
+        val newSol = algorithms.mutate(individuo._1, n*0.2 toInt, random)
         (newSol, cost(inputs, newSol))
       }
       else individuo
@@ -82,10 +78,8 @@ object Genetic {
     lastPopulation minBy(_._2)
   }
 
-  implicit def individuo2Solution(individuo: Individuo): Solution = individuo._1
-
   def main(args: Array[String]): Unit = {
-    val p = Problems.tai25
+    val p = Problems.tai150
 
     val opt = p._2._2
 
